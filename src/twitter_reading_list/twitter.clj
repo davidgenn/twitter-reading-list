@@ -4,9 +4,22 @@
     [twitter-reading-list.authenticate :as authenticate]
     [clojure.data.json :as json]))
 
-(defn extract-urls [timeline]
+(defn extract-data-old [timeline]
   (map #(get-in % [0 "expanded_url"])
        (map #(get-in % ["entities" "urls"]) timeline)))
+
+(defn extract-urls [urls]
+  (map #(get % "expanded_url") urls))
+
+(defn build-data [input] 
+  {:text (get input "text")
+   :user (get-in input ["user" "name"])
+   :urls (extract-urls (get-in input ["entities" "urls"]))}
+)
+(defn build-data [timeline]
+  (map 
+   dummy-data
+   timeline))
 
 (defn users-timeline-urls [pin request-token]
   (let [credentials (authenticate/credentials
