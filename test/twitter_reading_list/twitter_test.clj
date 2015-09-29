@@ -42,6 +42,9 @@
 (facts "about Twitter functionality"
   (fact "extract-data extracts data from tweets"
     (extract-data test-timeline) => 
-    [{:urls ["http://wibble"]
-      :tweet "A tweet"
-      :user "O'Reilly Velocity"}]))
+    [{:urls ["https://medium.com/compliance-at-velocity/chevy-and-devops-what-the-wi-fi-a07946293358"]
+      :tweet "What if we continuously deliver our cars? Great post by @weekstweets Chevy &amp; #DevOps https://t.co/yIhEYeeyRP"
+      :user "O'Reilly Velocity"}
+     {:user "Docker"
+      :tweet "\"Scalable Groups: Extensibility &amp; Load Balancing Workload w/ @IBMContainers\" by @chrisrosen188: http://t.co/ewZarX5677 #DockerWeekly @Docker"
+      :urls ["http://blog.ibmjstart.net/2015/06/27/scalable-groups-extensibility-and-load-balancing-your-workload-with-ibm-containers/"]}]))
