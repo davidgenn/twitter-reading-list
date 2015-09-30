@@ -20,14 +20,12 @@
                       "https://api.twitter.com/1.1/statuses/home_timeline.json"
                       pin
                       request-token)]
-"hi"
     (->
       (http/get "https://api.twitter.com/1.1/statuses/home_timeline.json"
                 {:query-params credentials})
       :body
       json/read-str
-     extract-data)
-    ))
+     extract-data)))
 
 
 
