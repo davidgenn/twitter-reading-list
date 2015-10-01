@@ -15,11 +15,10 @@
 (defn extract-data [timeline]
   (map build-data timeline))
 
-(defn users-timeline-urls [pin request-token]
+(defn users-timeline-urls [pin]
   (let [credentials (authenticate/credentials
                       "https://api.twitter.com/1.1/statuses/home_timeline.json"
-                      pin
-                      request-token)]
+                      pin)]
     (->
       (http/get "https://api.twitter.com/1.1/statuses/home_timeline.json"
                 {:query-params credentials})

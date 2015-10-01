@@ -17,6 +17,9 @@
 ;; Fetch a request token that a OAuth User may authorize
 (defn request-token [] (oauth/request-token consumer))
 
+;; The current request token being used as part of the approval flow - a totally naive implementation atm, but it will do
+(def current-request-token (ref {}))
+
 ;; Send the User to this URI for authorization, they will be able
 ;; to choose the level of access to grant the application and will
 ;; then be redirected to the callback URI provided with the
@@ -25,6 +28,8 @@
   (let [request-token (request-token)
         approval-url (oauth/user-approval-uri consumer
                                               (:oauth_token request-token))]
+    (dosync 
+      (ref-set current-request-token request-token))
     {:request-token request-token
      :approval-url  approval-url})
   )
@@ -44,8 +49,8 @@
 ;; credentials are returned as a map of all OAuth parameters that must be
 ;; included with the request as either query parameters or in an
 ;; Authorization HTTP header.
-(defn credentials [url pin request-token]
-  (let [token-response (access-token-response pin request-token)]
+(defn credentials [url pin]
+  (let [token-response (access-token-response pin @current-request-token)]
     (oauth/credentials consumer
                        (:oauth_token token-response)
                        (:oauth_token_secret token-response)
