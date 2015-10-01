@@ -5,7 +5,7 @@
 (defn send-email []
   (postal.send-message {:host "smtp.gmail.com"
                             :user "davidgenn"
-                            :pass "1LuvJsus"
+                            :pass password
                             :tls true}
                            {:from "davidgenn@gmail.com"
                             :to "davidgenn@gmail.com"
