@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [clj-oauth "1.5.2"]
                  [jarohen/nomad "0.7.1"]
-                 [org.clojure/data.json "0.2.6"]]
+                 [org.clojure/data.json "0.2.6"]
+                 [com.draines/postal "1.11.3"]]
   :profiles {:dev {:dependencies [[midje "1.7.0"]]
                  :plugins [[lein-midje "3.0.0"]]}})
