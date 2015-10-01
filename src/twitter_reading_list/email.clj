@@ -10,7 +10,7 @@
 
 ;; requires permission for 'less secure' apps to be turned on
 (defn send-email []
-  (postal.send-message {:host "smtp.gmail.com"
+  (postal/send-message {:host "smtp.gmail.com"
                             :user "davidgenn"
                             :pass (:gmail-password (config))
                             :tls true}
