@@ -7,4 +7,5 @@
                  [clj-oauth "1.5.2"]
                  [jarohen/nomad "0.7.1"]
                  [org.clojure/data.json "0.2.6"]]
-  :profiles {:dev {:dependencies [[midje "1.7.0"]]}})
+  :profiles {:dev {:dependencies [[midje "1.7.0"]
+                                  [lein-midje "1.0.10"]]}})
