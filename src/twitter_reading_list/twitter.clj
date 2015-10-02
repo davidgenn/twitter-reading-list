@@ -15,7 +15,7 @@
 (defn extract-data [timeline]
   (map build-data timeline))
 
-(defn users-timeline-urls [pin]
+(defn users-tweets [pin]
   (let [credentials (authenticate/credentials
                       "https://api.twitter.com/1.1/statuses/home_timeline.json"
                       pin)]
