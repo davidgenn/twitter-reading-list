@@ -15,4 +15,5 @@
   {:dev {:dependencies [[javax.servlet/servlet-api "2.5"]
                         [ring-mock "0.1.5"]
                         [midje "1.7.0"]]
-         :plugins [[lein-midje "3.0.0"]]}})
+         :plugins [[lein-midje "3.0.0"]]}}
+  :main twitter-reading-list.core)
