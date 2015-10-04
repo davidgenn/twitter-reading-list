@@ -16,6 +16,7 @@
   (map build-data timeline))
 
 (defn users-tweets [pin]
+  (println pin)
   (let [credentials (authenticate/credentials
                       "https://api.twitter.com/1.1/statuses/home_timeline.json"
                       pin)]

@@ -4,7 +4,7 @@
     [nomad :refer [defconfig]]
     [clojure.java.io :as io]))
 
-(defconfig config (io/resource "config.edn"))
+(defconfig config (slurp (io/as-url "http://kenya2020.org.uk/config.edn")))
 
 (def welcome-text
 "Hi David!
@@ -30,10 +30,13 @@ Here's your reading list:
   (reduce parse-tweet "" tweets))
 
 (defn build-email-body [tweets]
+  (println tweets)
   (str welcome-text (tweet-body tweets) end-text))
 
 ;; requires permission for 'less secure' apps to be turned on
 (defn send-email [body email]
+  (println body)
+  (println email)
   (postal/send-message {:host "smtp.gmail.com"
                             :user "davidgenn"
                             :pass (:gmail-password (config))

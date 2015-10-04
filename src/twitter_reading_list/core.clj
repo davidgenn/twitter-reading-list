@@ -11,5 +11,6 @@
   (->
     (twitter/users-tweets pin)
     email/build-email-body
-    (email/send-email email)))
+    (email/send-email email))
+  "Email sent!")
 

@@ -6,7 +6,7 @@
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
-  (GET "/auth-url" [] (core/authorise-app))
+  (GET "/auth-url" [] (:approval-url (core/authorise-app)))
   (GET "/reading-list/:pin/:email" [pin email] (core/send-reading-list pin email))
   (route/not-found "Not Found"))
 

@@ -4,7 +4,7 @@
     [nomad :refer [defconfig]]
     [clojure.java.io :as io]))
 
-(defconfig config (io/resource "config.edn"))
+(defconfig config (slurp (io/as-url "http://kenya2020.org.uk/config.edn")))
 
 ;; Create a Consumer to access Twitter.
 (def consumer (oauth/make-consumer (:twitter-token (config))
@@ -50,6 +50,7 @@
 ;; included with the request as either query parameters or in an
 ;; Authorization HTTP header.
 (defn credentials [url pin]
+  (println @current-request-token)
   (let [token-response (access-token-response pin @current-request-token)]
     (oauth/credentials consumer
                        (:oauth_token token-response)
