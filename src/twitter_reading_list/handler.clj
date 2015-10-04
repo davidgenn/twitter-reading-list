@@ -2,7 +2,8 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
-            [twitter-reading-list.core :as core]))
+            [twitter-reading-list.core :as core]
+            [ring.adapter.jetty :as jetty]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
@@ -12,3 +13,7 @@
 
 (def app
   (wrap-defaults app-routes site-defaults))
+
+(defn -main []
+  (let [port (Integer/parseInt (get (System/getenv) "PORT" "5000"))]
+    (jetty/run-jetty app-routes {:port port})))

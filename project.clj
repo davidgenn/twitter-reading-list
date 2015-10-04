@@ -4,6 +4,7 @@
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [compojure "1.3.1"]
+                 [ring "1.1.8"]
                  [ring/ring-defaults "0.1.2"]
                  [clj-oauth "1.5.2"]
                  [jarohen/nomad "0.7.1"]
@@ -16,4 +17,4 @@
                         [ring-mock "0.1.5"]
                         [midje "1.7.0"]]
          :plugins [[lein-midje "3.0.0"]]}}
-  :main twitter-reading-list.core)
+  :main twitter-reading-list.handler)
