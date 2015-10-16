@@ -1,10 +1,12 @@
 (ns twitter-reading-list.authenticate
   (:require
-    [oauth.client :as oauth]
-    [nomad :refer [defconfig]]
-    [clojure.java.io :as io]))
+   [oauth.client :as oauth]
+   [nomad :refer [defconfig]]
+   [clojure.java.io :as io]))
 
-(defconfig config (slurp (io/as-url "http://kenya2020.org.uk/config.edn")))
+;; (defconfig config (slurp (io/as-url "http://kenya2020.org.uk/config.edn")))
+
+(defconfig config (io/resource "config.edn"))
 
 ;; Create a Consumer to access Twitter.
 (def consumer (oauth/make-consumer (:twitter-token (config))
@@ -15,7 +17,7 @@
                                    :hmac-sha1))
 
 ;; Fetch a request token that a OAuth User may authorize
-(defn request-token [] (oauth/request-token consumer))
+(defn request-token [] (oauth/request-token consumer "https://twitter-reading-list.herokuapp.com/session"))
 
 ;; The current request token being used as part of the approval flow - a totally naive implementation atm, but it will do
 (def current-request-token (ref {}))
@@ -29,7 +31,7 @@
         approval-url (oauth/user-approval-uri consumer
                                               (:oauth_token request-token))]
     (dosync 
-      (ref-set current-request-token request-token))
+     (ref-set current-request-token request-token))
     {:request-token request-token
      :approval-url  approval-url})
   )

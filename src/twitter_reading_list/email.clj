@@ -1,30 +1,34 @@
 (ns twitter-reading-list.email
   (:require 
-    [postal.core :as postal]
-    [nomad :refer [defconfig]]
-    [clojure.java.io :as io]))
+   [postal.core :as postal]
+   [nomad :refer [defconfig]]
+   [clojure.java.io :as io]))
 
 (defconfig config (slurp (io/as-url "http://kenya2020.org.uk/config.edn")))
 
 (def welcome-text
-"Hi David!
+  "Hi David!
 
 Here's your reading list:
 
 ")
 
 (def end-text 
-"Happy reading!")
+  "Happy reading!")
 
 (defn parse-tweet [input tweet]
   (str 
-  input 
-  (:tweet tweet) 
-  " - by " 
-  (:user tweet) 
-  " - " 
-  (get (:urls tweet) 0)
-  "\n\n"))
+   input 
+   (:tweet tweet) 
+   " - by " 
+   (:user tweet) 
+   " - " 
+   (get (:urls tweet) 0)
+   " Favourites: "
+   (:favourites tweet)
+   " Retweets: "
+   (:retweets tweet)
+   "\n\n"))
 
 (defn tweet-body [tweets]
   (reduce parse-tweet "" tweets))
@@ -35,14 +39,11 @@ Here's your reading list:
 
 ;; requires permission for 'less secure' apps to be turned on
 (defn send-email [body email]
-  (println body)
-  (println email)
   (postal/send-message {:host "smtp.gmail.com"
-                            :user "davidgenn"
-                            :pass (:gmail-password (config))
-                            :tls true}
-                           {:from "davidgenn@gmail.com"
-                            :to email
-                            :subject "Twitter reading list"
-                            :body body})
-)
+                        :user "davidgenn"
+                        :pass (:gmail-password (config))
+                        :tls true}
+                       {:from "davidgenn@gmail.com"
+                        :to email
+                        :subject "Twitter reading list"
+                        :body body}))
