@@ -8,8 +8,9 @@
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
-  (GET "/auth-url" [] (ring-response/redirect (:approval-url (core/authorise-app))))
+  (GET "/auth-url/:email" [email] (ring-response/redirect (:approval-url (core/authorise-app email))))
   (GET "/reading-list/:pin/:email" [pin email] (core/send-reading-list pin email))
+  (GET "/session/:email" [email oauth_token oauth_verifier] (core/send-reading-list-2 email oauth_token oauth_verifier))
   (route/not-found "Not Found"))
 
 (def app

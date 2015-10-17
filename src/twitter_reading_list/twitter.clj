@@ -29,10 +29,10 @@
      (empty? (:urls %)))
    tweets))
 
-(defn users-tweets [pin]
+(defn users-tweets [token verifier]
   (let [credentials (authenticate/credentials
                      "https://api.twitter.com/1.1/statuses/home_timeline.json"
-                     pin)]
+                     token verifier)]
     (->
      (http/get "https://api.twitter.com/1.1/statuses/home_timeline.json"
                {:query-params credentials})
