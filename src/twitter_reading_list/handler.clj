@@ -2,12 +2,13 @@
   (:require [compojure.core :refer :all]
             [compojure.route :as route]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
+            [ring.util.response :as ring-response]
             [twitter-reading-list.core :as core]
             [ring.adapter.jetty :as jetty]))
 
 (defroutes app-routes
   (GET "/" [] "Hello World")
-  (GET "/auth-url" [] (:approval-url (core/authorise-app)))
+  (GET "/auth-url" [] (ring-response/redirect (:approval-url (core/authorise-app))))
   (GET "/reading-list/:pin/:email" [pin email] (core/send-reading-list pin email))
   (route/not-found "Not Found"))
 
