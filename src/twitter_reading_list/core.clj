@@ -1,8 +1,9 @@
 (ns twitter-reading-list.core
   (:require
-    [twitter-reading-list.authenticate :as authenticate]
-    [twitter-reading-list.twitter :as twitter]
-    [twitter-reading-list.email :as email]))
+   [twitter-reading-list.authenticate :as authenticate]
+   [twitter-reading-list.twitter :as twitter]
+   [twitter-reading-list.email :as email]
+   [clojure.string :as str]))
 
 (defn authorise-app [email]
   (authenticate/approval-url email))
@@ -16,11 +17,14 @@
   (println "oauth token: " (get-in request [:params :oauth_token]))
   (println "query string: " (:query-string request))
   (println "params: " (:params request))
-  ;; (->
-  ;;  (twitter/users-tweets oauth_token oauth_verifier)
-  ;;  email/build-email-body
-  ;;  (email/send-email email)
-  ;; )
+  (let [query-params (str/split (:query-string request) #"&")
+        oauth-verifier-map (str/split (get query-params 1) #"=")
+        oauth-verifier (get oauth-verifier-map 1)]
+    (println oauth-verifier))
+  (->
+   (twitter/users-tweets oauth_token oauth-verifier)
+   email/build-email-body
+   (email/send-email email))
   "Email sent!")
 
 (defn send-reading-list [pin email]
