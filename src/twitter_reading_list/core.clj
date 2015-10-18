@@ -13,7 +13,9 @@
   ;; (println oauth_verifier)
   (println email)
   (println request)
-(println "oauth token: " (get-in request [:params :oauth_token]))
+  (println "oauth token: " (get-in request [:params :oauth_token]))
+  (println "query string: " (:query-string request))
+  (println "params: " (:params request))
   ;; (->
   ;;  (twitter/users-tweets oauth_token oauth_verifier)
   ;;  email/build-email-body
