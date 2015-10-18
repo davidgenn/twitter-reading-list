@@ -7,12 +7,12 @@
 (defn authorise-app [email]
   (authenticate/approval-url email))
 
-(defn send-reading-list-2 [email request]
+(defn send-reading-list-2 [email oauth_token oauth_verifier request]
   ;; (println email)
-  ;; (println oauth_token)
-  ;; (println oauth_verifier)
-  (println email)
-  (println request)
+  (println "oauth_token " oauth_token)
+  (println "oauth_verifier " oauth_verifier)
+  (println "email " email)
+  (println "request: " request)
   (println "oauth token: " (get-in request [:params :oauth_token]))
   (println "query string: " (:query-string request))
   (println "params: " (:params request))
