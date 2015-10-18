@@ -7,14 +7,18 @@
 (defn authorise-app [email]
   (authenticate/approval-url email))
 
-(defn send-reading-list-2 [email oauth_token oauth_verifier]
+(defn send-reading-list-2 [email request]
+  ;; (println email)
+  ;; (println oauth_token)
+  ;; (println oauth_verifier)
   (println email)
-  (println oauth_token)
-  (println oauth_verifier)
-  (->
-   (twitter/users-tweets oauth_token oauth_verifier)
-   email/build-email-body
-   (email/send-email email))
+  (println request)
+(println "oauth token: " (get-in request [:params :oauth_token]))
+  ;; (->
+  ;;  (twitter/users-tweets oauth_token oauth_verifier)
+  ;;  email/build-email-body
+  ;;  (email/send-email email)
+  ;; )
   "Email sent!")
 
 (defn send-reading-list [pin email]
