@@ -20,11 +20,11 @@
   (let [query-params (str/split (:query-string request) #"&")
         oauth-verifier-map (str/split (get query-params 1) #"=")
         oauth-verifier (get oauth-verifier-map 1)]
-    (println oauth-verifier))
-  (->
-   (twitter/users-tweets oauth_token oauth-verifier)
-   email/build-email-body
-   (email/send-email email))
+    (println oauth-verifier)
+    (->
+     (twitter/users-tweets oauth_token oauth-verifier)
+     email/build-email-body
+     (email/send-email email)))
   "Email sent!")
 
 (defn send-reading-list [pin email]
