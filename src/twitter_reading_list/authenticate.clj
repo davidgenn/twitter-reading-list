@@ -45,7 +45,7 @@
 ;; If the OAuth Service Provider provides a verifier, it should be included in the
 ;; request for the access token.  See [Section 6.2.3](http://oauth.net/core/1.0a#rfc.section.6.2.3) of the OAuth specification
 ;; for more information.
-(defn access-token-response [verifier request-token] (oauth/access-token consumer
+(defn access-token-response [verifier] (oauth/access-token consumer
                                                                     @current-request-token
                                                                     verifier)) ;; PIN
 
@@ -53,8 +53,8 @@
 ;; credentials are returned as a map of all OAuth parameters that must be
 ;; included with the request as either query parameters or in an
 ;; Authorization HTTP header.
-(defn credentials [url token verifier]
-  (let [token-response (access-token-response verifier token)]
+(defn credentials [url verifier]
+  (let [token-response (access-token-response verifier)]
     (oauth/credentials consumer
                        (:oauth_token token-response)
                        (:oauth_token_secret token-response)
